@@ -3,14 +3,18 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 import ExifReader from 'exifreader';
+import { config } from 'dotenv';
+
+// Load environment variables from .env file
+config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = 3427;
-// 配置你的本机照片目录路径
-const PHOTOS_DIR = 'C:/Users/Judy/Desktop/屏幕背景' // 修改为你的照片目录
+// 从环境变量获取照片目录路径
+const PHOTOS_DIR = process.env.PHOTOS_DIR || 'C:/Users/Judy/Desktop/屏幕背景';
 // 或者使用相对路径：const PHOTOS_DIR = './local-photos'
 app.use('/photos', express.static(PHOTOS_DIR))
 // 支持的图片格式
